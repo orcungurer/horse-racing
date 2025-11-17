@@ -6,17 +6,16 @@ import { useRoundStore } from "@/features/round/store/useRoundStore";
 
 export default function Home() {
   const generateHorsePool = useHorseStore((state) => state.generateHorsePool);
-  const horses = useHorseStore((state) => state.horses);
   const generateRounds = useRoundStore((state) => state.generateRounds);
-  const rounds = useRoundStore((state) => state.rounds);
   const resetRace = useRaceStore((state) => state.resetRace);
+  const startRace = useRaceStore((state) => state.startRace);
 
   const handleGenerateProgram = () => {
     resetRace();
     generateHorsePool();
-    console.log("horses", horses);
+    console.log("horses", useHorseStore.getState().horses);
     generateRounds();
-    console.log("rounds", rounds);
+    console.log("rounds", useRoundStore.getState().rounds);
   };
 
   return (
@@ -28,6 +27,12 @@ export default function Home() {
           onClick={handleGenerateProgram}
         >
           Generate Program
+        </button>
+        <button
+          onClick={startRace}
+          className="px-4 py-2 rounded bg-blue-600 text-sm text-white hover:bg-blue-700 cursor-pointer"
+        >
+          Start Race
         </button>
       </header>
     </div>

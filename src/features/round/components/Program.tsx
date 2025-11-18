@@ -3,58 +3,41 @@
 import { useRoundStore } from "@/features/round/store/useRoundStore";
 import { useHorseStore } from "@/features/horse/store/useHorseStore";
 import { getLapTitle } from "@/shared/utils/getLapTitle";
+import TableWrapper from "@/shared/components/TableWrapper";
+import Table from "@/shared/components/Table";
 
 const Program = () => {
   const rounds = useRoundStore((state) => state.rounds);
   const horses = useHorseStore((state) => state.horses);
 
+  if (rounds.length === 0) return null;
+
   return (
-    <>
-      {rounds.length > 0 && (
-        <div>
-          <h2 className="font-semibold mb-2">Program</h2>
+    <TableWrapper title="Program">
+      {rounds.map((round) => (
+        <div key={round.id}>
+          <h3 className="text-center bg-red-200 border-b border-gray-300">
+            {`${getLapTitle(round.id)} - ${round.distance}m`}
+          </h3>
+          <Table headers={["Position", "Name"]}>
+            {round.horses.map((horseId, idx) => {
+              const horseMap = Object.fromEntries(horses.map((h) => [h.id, h]));
+              const horse = horseMap[horseId];
 
-          <div className="overflow-x-auto max-h-[600px] overflow-y-auto border border-gray-300 rounded">
-            {rounds.map((round) => (
-              <div key={round.id}>
-                <h3 className="text-center bg-red-200 border-b border-gray-300">
-                  {`${getLapTitle(round.id)} - ${round.distance}m`}
-                </h3>
-                <table className="table-auto w-full text-center">
-                  <thead>
-                    <tr className="border-b border-gray-300">
-                      <th className="px-4 py-2">Position</th>
-                      <th className="px-4 py-2">Name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {round.horses.map((horseId, idx) => {
-                      const horseMap = Object.fromEntries(
-                        horses.map((h) => [h.id, h])
-                      );
-                      const horse = horseMap[horseId];
-
-                      return (
-                        <tr
-                          key={`${round.id}-${horseId}`}
-                          className="border-b border-gray-300 hover:bg-gray-100 bg-white"
-                        >
-                          <td className="py-2 px-4 text-sm">{idx + 1}</td>
-
-                          <td className="py-2 px-4 text-sm flex items-center justify-center gap-2">
-                            {horse?.name ?? "Unknown"}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            ))}
-          </div>
+              return (
+                <tr
+                  key={`${round.id}-${horseId}`}
+                  className="border-b border-gray-300 hover:bg-gray-100 bg-white"
+                >
+                  <td className="p-2 text-sm">{idx + 1}</td>
+                  <td className="p-2 text-sm">{horse?.name ?? "Unknown"}</td>
+                </tr>
+              );
+            })}
+          </Table>
         </div>
-      )}
-    </>
+      ))}
+    </TableWrapper>
   );
 };
 

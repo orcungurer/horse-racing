@@ -12,9 +12,9 @@ interface HorseItemProps {
 const HorseItem = ({ horse }: HorseItemProps) => {
   return (
     <tr className="border-b border-gray-300 hover:bg-gray-100 bg-white">
-      <td className="py-2 text-sm text-gray-800 whitespace-nowrap">{horse.name}</td>
-      <td className="py-2 text-sm">{horse.condition}</td>
-      <td className="py-2">
+      <td className="p-2 text-sm whitespace-nowrap">{horse.name}</td>
+      <td className="p-2 text-sm">{horse.condition}</td>
+      <td className="p-2">
         <div
           className="w-3 h-3 rounded-full text-center mx-auto"
           style={{ backgroundColor: horse.color }}

@@ -13,6 +13,15 @@ export default function Home() {
   const generateRounds = useRoundStore((state) => state.generateRounds);
   const resetRace = useRaceStore((state) => state.resetRace);
   const startRace = useRaceStore((state) => state.startRace);
+  const rounds = useRoundStore((state) => state.rounds);
+  const raceStatus = useRaceStore((state) => state.raceStatus);
+
+  let raceBtnText = "Start Race";
+  if (raceStatus === "running") {
+    raceBtnText = "Pause Race";
+  } else if (raceStatus === "paused") {
+    raceBtnText = "Resume Race";
+  }
 
   const handleGenerateProgram = () => {
     resetRace();
@@ -37,8 +46,9 @@ export default function Home() {
           <button
             onClick={startRace}
             className="px-4 py-2 rounded bg-blue-600 text-sm text-white hover:bg-blue-700 cursor-pointer"
+            disabled={rounds.length === 0}
           >
-            Start Race
+            {raceBtnText}
           </button>
         </div>
       </header>

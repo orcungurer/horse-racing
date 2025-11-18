@@ -55,7 +55,10 @@ export const useRaceStore = create<RaceState>((set, get) => ({
       console.log(`Results for Round ${round.id}:`, result);
 
       set((state) => ({
-        results: [...state.results, { roundId: round.id, result }],
+        results: [
+          ...state.results.filter((r) => r.roundId !== round.id),
+          { roundId: round.id, result },
+        ],
       }));
 
       setTimeout(() => {

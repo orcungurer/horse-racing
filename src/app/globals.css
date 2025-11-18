@@ -24,3 +24,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+button:disabled {
+  @apply bg-gray-400 cursor-default opacity-60;
+}

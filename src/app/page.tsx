@@ -6,7 +6,7 @@ import { useRoundStore } from "@/features/round/store/useRoundStore";
 import HorseList from "@/features/horse/components/HorseList";
 import Program from "@/features/round/components/Program";
 import RaceResults from "@/features/race/components/RaceResults";
-// import RaceTracker from "@/features/race/components/RaceTracker";
+import RaceTracker from "@/features/race/components/RaceTracker";
 
 export default function Home() {
   const generateHorsePool = useHorseStore((state) => state.generateHorsePool);
@@ -49,7 +49,7 @@ export default function Home() {
         </div>
 
         <div className="col-span-1">
-          {/* <RaceTracker /> */}
+          <RaceTracker />
         </div>
 
         <div className="col-span-1 flex">
